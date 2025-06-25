@@ -1,0 +1,70 @@
+<div class="container py-4 bg-white rounded shadow-sm border">
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h2 class="mb-0 text-primary">📚 Livros</h2>
+      <a routerLink="/livros/novo" class="btn btn-success">
+        + Novo Livro
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p class="text-muted">
+        Abaixo estão listados os livros cadastrados, com informações detalhadas. Utilize os botões de ação para editar ou excluir registros.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end mb-3">
+      <button class="btn btn-outline-secondary" (click)="voltarParaHome()">← Voltar Para Home</button>
+    </div>
+
+    <div class="col-12">
+      <table class="table table-bordered table-hover align-middle" *ngIf="livros.length">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 60px;">ID</th>
+            <th>Título</th>
+            <th>Editora</th>
+            <th style="width: 80px;">Ano</th>
+            <th style="width: 110px;">Valor</th>
+            <th>Assuntos</th>
+            <th>Autores</th>
+            <th style="width: 150px;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let livro of livros">
+            <td>{{ livro.id }}</td>
+            <td>{{ livro.titulo }}</td>
+            <td>{{ livro.editora || '-' }}</td>
+            <td>{{ livro.anoPublicacao || '-' }}</td>
+            <td>R$ {{ livro.valor | number:'1.2-2' }}</td>
+            <td>{{ obterNomesAssuntos(livro) }}</td>
+            <td>{{ obterNomesAutores(livro) }}</td>
+            <td>
+              <a
+                [routerLink]="['/livros/editar', livro.id]"
+                class="btn btn-sm btn-outline-primary me-1"
+              >
+                ✏️ Editar
+              </a>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="excluir(livro.id)"
+              >
+                🗑️ Excluir
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!livros.length" class="alert alert-warning text-center">
+        Nenhum livro encontrado.
+      </div>
+    </div>
+  </div>
+</div>

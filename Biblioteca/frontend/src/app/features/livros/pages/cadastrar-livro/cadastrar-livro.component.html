@@ -1,0 +1,149 @@
+<div class="container py-4 bg-white rounded shadow-sm border">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-3 text-primary">
+        {{ editando ? '✏️ Editar Livro' : '📘 Novo Livro' }}
+      </h2>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+    <div class="row">
+      <div class="col-md-10 col-lg-8">
+
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Título</label>
+          <input
+            type="text"
+            id="titulo"
+            formControlName="titulo"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': form.get('titulo')?.invalid && form.get('titulo')?.touched }"
+          />
+          <div class="invalid-feedback" *ngIf="form.get('titulo')?.errors?.['required']">
+            Título é obrigatório.
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('titulo')?.errors?.['minlength']">
+            Título deve ter no mínimo 3 caracteres.
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('titulo')?.errors?.['maxlength']">
+            Título deve ter no máximo 150 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Autores</label>
+          <ng-select
+            [items]="autores"
+            bindLabel="nome"
+            bindValue="id"
+            formControlName="autoresIds"
+            [searchable]="true"
+            [clearable]="true"
+            [multiple]="true">
+          </ng-select>
+          <div class="invalid-feedback d-block mt-1" *ngIf="(submitted || form.get('autoresIds')?.touched) && form.get('autoresIds')?.errors?.['required']">
+            Selecione ao menos um autor.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Assuntos</label>
+          <ng-select
+            [items]="assuntos"
+            bindLabel="descricao"
+            bindValue="id"
+            formControlName="assuntosIds"
+            [searchable]="true"
+            [clearable]="true"
+            [multiple]="true">
+          </ng-select>
+          <div class="invalid-feedback d-block mt-1" *ngIf="(submitted || form.get('assuntosIds')?.touched) && form.get('assuntosIds')?.errors?.['required']">
+            Selecione ao menos um assunto.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="editora" class="form-label">Editora</label>
+          <input
+            type="text"
+            id="editora"
+            formControlName="editora"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': form.get('editora')?.invalid && form.get('editora')?.touched }"
+          />
+          <div class="invalid-feedback" *ngIf="form.get('editora')?.errors?.['maxlength']">
+            Máximo de 40 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="edicao" class="form-label">Edição</label>
+          <input
+            type="number"
+            pattern="[0-9]*"
+            id="edicao"
+            maxlength="1"
+            formControlName="edicao"
+            (keypress)="permitirSomenteUmNumero($event)"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': form.get('edicao')?.invalid && form.get('edicao')?.touched }"
+          />
+          <div class="invalid-feedback" *ngIf="form.get('edicao')?.errors?.['max']">
+            Máximo permitido é 6.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="anoPublicacao" class="form-label">Ano de Publicação</label>
+          <input
+            type="text"
+            inputmode="numeric"
+            pattern="\d*"
+            id="anoPublicacao"
+            maxlength="4"
+            formControlName="anoPublicacao"
+            (keypress)="permitirSomenteNumeros($event)"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': form.get('anoPublicacao')?.invalid && form.get('anoPublicacao')?.touched }"
+          />
+          <div class="invalid-feedback" *ngIf="form.get('anoPublicacao')?.errors?.['required']">
+            Ano da Publicação é obrigatório.
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('anoPublicacao')?.errors?.['maxlength']">
+            Ano deve ter no máximo 4 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="valor" class="form-label">Valor</label>
+          <input
+            type="text"
+            id="valor"
+            formControlName="valor"
+            class="form-control"
+            mask="separator.2"
+            thousandSeparator="."
+            prefix="R$ "
+            decimalMarker=","
+            [ngClass]="{ 'is-invalid': form.get('valor')?.invalid && form.get('valor')?.touched }"
+          />
+          <div class="invalid-feedback" *ngIf="form.get('valor')?.errors?.['required']">
+            Valor é obrigatório.
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('valor')?.errors?.['min']">
+            Valor mínimo de R$ 0,01.
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start">
+          <button type="submit" class="btn btn-primary me-2" [disabled]="form.invalid">
+            {{ editando ? 'Atualizar' : 'Salvar' }}
+          </button>
+          <a routerLink="/livros" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+        
+      </div>
+    </div>
+  </form>
+</div>

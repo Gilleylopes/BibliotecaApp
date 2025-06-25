@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <h2>{{ editando ? '✏️ Editar Usuário' : '🆕 Novo Usuário' }}</h2>
+  
+    <form [formGroup]="form" (ngSubmit)="salvar()" class="mt-3">
+  
+      <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" formControlName="nome"
+          [ngClass]="{ 'is-invalid': form.get('nome')?.invalid && form.get('nome')?.touched }" />
+        <div class="invalid-feedback">Nome obrigatório.</div>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email"
+          [ngClass]="{ 'is-invalid': form.get('email')?.invalid && form.get('email')?.touched }" />
+        <div class="invalid-feedback">Email válido obrigatório.</div>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Papel</label>
+        <select class="form-select" formControlName="papel"
+          [ngClass]="{ 'is-invalid': form.get('papel')?.invalid && form.get('papel')?.touched }">
+          <option value="" disabled selected>Selecione um papel</option>
+          <option *ngFor="let p of papeis" [value]="p">{{ p }}</option>
+        </select>
+        <div class="invalid-feedback">Selecione um papel.</div>
+      </div>
+  
+      <div class="mb-3" *ngIf="!editando">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-control" formControlName="senha"
+          [ngClass]="{ 'is-invalid': form.get('senha')?.invalid && form.get('senha')?.touched }" />
+        <div class="invalid-feedback">Senha obrigatória (mín. 6 caracteres).</div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary me-2" [disabled]="form.invalid">
+        {{ editando ? 'Atualizar' : 'Salvar' }}
+      </button>
+      <a routerLink="/usuarios" class="btn btn-outline-secondary">Cancelar</a>
+    </form>
+  </div>
+  

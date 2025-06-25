@@ -1,0 +1,13 @@
+<div class="home-container">
+    <h2>📚 Bem-vindo à Biblioteca</h2>
+    <p class="subtitle">Escolha uma das opções abaixo</p>
+  
+    <div class="menu-grid">
+      <div class="menu-card" (click)="navegar('/livros')">📖<span>Livros</span></div>
+      <div class="menu-card" (click)="navegar('/autores')">🖋️<span>Autores</span></div>
+      <div class="menu-card" (click)="navegar('/assuntos')">🏷️<span>Assuntos</span></div>
+      <div class="menu-card" (click)="navegar('/relatorio')">📄<span>Relatório</span></div>
+      <div class="menu-card sair" (click)="logout()">🚪<span>Sair</span></div>
+    </div>
+  </div>
+  

@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: biblioteca_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: biblioteca
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - biblioteca-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: biblioteca_backend
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/biblioteca
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    networks:
+      - biblioteca-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: biblioteca_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - biblioteca-net
+
+volumes:
+  pgdata:
+
+networks:
+  biblioteca-net:

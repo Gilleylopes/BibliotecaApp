@@ -1,0 +1,123 @@
+/* ======= Importações ======= */
+@import url('node_modules/ngx-toastr/toastr.css');
+
+/* ======= Paleta personalizada ======= */
+:root {
+  --cor-primaria: #0d6efd;
+  --cor-secundaria: #6c757d;
+  --cor-fundo: #f8f9fa;
+  --cor-texto: #212529;
+  --fonte-principal: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ======= Base ======= */
+body {
+  font-family: var(--fonte-principal);
+  color: var(--cor-texto);
+  background-color: var(--cor-fundo);
+  font-size: 16px;
+}
+
+.container, .container-fluid {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* ======= Títulos ======= */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--cor-primaria);
+  font-weight: 600;
+}
+
+/* ======= Estilização para ng-select ======= */
+.ng-select {
+  min-height: 44px;
+  border-radius: 0.375rem;
+  border: 1.5px solid #ced4da;
+  background: #fff;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-shadow: none;
+
+  &.ng-select-focused {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.15);
+  }
+}
+
+.ng-select .ng-select-container {
+  min-height: 44px;
+  border: none;
+  background: --cor-secundaria;
+  box-shadow: none;
+}
+
+.ng-select .ng-select-container .ng-value {
+  background: var(--cor-primaria);
+  color: #fff;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  padding: 0.2em 0.6em;
+  font-size: 0.95em;
+}
+
+.ng-select .ng-select-container .ng-value-icon {
+  color: #fff;
+}
+
+.ng-select .ng-dropdown-panel {
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid --cor-secundaria;
+}
+
+.ng-select .ng-dropdown-panel .ng-option {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+}
+
+.ng-select .ng-dropdown-panel .ng-option-selected {
+  background: var(--cor-primaria);
+  color: --cor-secundaria;
+}
+
+.ng-select .ng-dropdown-panel .ng-option-marked {
+  background: --cor-secundaria;
+}
+
+/* Ajuste para feedback de erro */
+.ng-select.is-invalid .ng-select-container {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.15);
+}
+
+.ng-select.ng-select-multiple .ng-select-container {
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  min-height: 44px;
+}
+
+.ng-select .ng-value {
+  margin-bottom: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ng-select.ng-select-multiple .ng-value-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ng-value-icon {
+  margin-left: 0.3rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+

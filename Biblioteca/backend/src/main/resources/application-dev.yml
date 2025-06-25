@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/biblioteca
+    username: postgres
+    password: senha
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    enabled: true
+
+jwt:
+  secret: segredomuitoSecreto123!@#
+  expiration-ms: 3600000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    root: INFO
+    org.springframework: WARN
+  file:
+    name: logs/biblioteca.log
+

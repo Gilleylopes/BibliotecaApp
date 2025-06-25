@@ -1,0 +1,54 @@
+<div class="container py-4 bg-white rounded shadow-sm border">
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h2 class="mb-0 text-primary">👤 Autores</h2>
+      <a routerLink="/autores/novo" class="btn btn-success">
+        + Novo Autor
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p class="text-muted">
+        Abaixo estão listados os autores cadastrados. Utilize os botões de ação para editar ou excluir registros.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end mb-3">
+      <button class="btn btn-outline-secondary" (click)="voltarParaHome()">← Voltar Para Home</button>
+    </div>
+
+    <div class="col-12">
+      <table class="table table-bordered table-hover align-middle" *ngIf="autores.length">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 80px;">ID</th>
+            <th>Nome</th>
+            <th style="width: 150px;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let autor of autores">
+            <td>{{ autor.id }}</td>
+            <td>{{ autor.nome }}</td>
+            <td>
+              <a [routerLink]="['/autores/editar', autor.id]" class="btn btn-sm btn-outline-primary me-1">
+                ✏️ Editar
+              </a>
+              <button class="btn btn-sm btn-outline-danger" (click)="excluir(autor.id)">
+                🗑️ Excluir
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!autores.length" class="alert alert-warning text-center">
+        Nenhum autor encontrado.
+      </div>
+    </div>
+  </div>
+</div>

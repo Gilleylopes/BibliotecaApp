@@ -1,0 +1,24 @@
+<div class="container py-4 bg-white rounded shadow-sm border relatorio-container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="mb-3 text-primary">
+        📄 Relatório de Livros por Autor
+      </h3>
+      <p class="text-muted">
+        Este relatório exibe a lista de livros cadastrados agrupados por autor, incluindo seus respectivos assuntos.
+        Ao clicar no botão abaixo, será gerado um <strong>arquivo PDF</strong> com todos os dados disponíveis.
+      </p>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col d-flex justify-content-between align-items-center">
+      <button type="button" class="btn btn-outline-secondary" (click)="voltarParaHome()">
+        ← Voltar Para Home
+      </button>
+      <button type="button" class="btn btn-primary" (click)="abrirRelatorio()">
+        Gerar Relatório &raquo;
+      </button>
+    </div>
+  </div>
+</div>

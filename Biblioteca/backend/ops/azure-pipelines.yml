@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  imageName: biblioteca-app
+  dockerRegistryServiceConnection: 'acr-biblioteca'
+
+steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean package'
+      options: '-DskipTests'
+    displayName: '🏗️ Build com Maven'
+
+  - task: Docker@2
+    displayName: '🐳 Build e Push da Imagem Docker'
+    inputs:
+      command: buildAndPush
+      repository: $(imageName)
+      dockerfile: backend/Dockerfile
+      containerRegistry: $(dockerRegistryServiceConnection)
+      tags: |
+        latest
+        $(Build.BuildId)
+
+  - task: PublishBuildArtifacts@1
+    displayName: '📦 Publicar artefatos'
+    inputs:
+      pathToPublish: 'target'
+      artifactName: 'app-jar'
+      publishLocation: 'Container'

@@ -1,0 +1,42 @@
+<div class="container py-4 bg-white rounded shadow-sm border">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-3 text-primary">
+        {{ editando ? '✏️ Editar Assunto' : '📌 Cadastrar Assunto' }}
+      </h2>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+    <div class="row">
+      <div class="col-md-8 col-lg-6">
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição</label>
+          <input
+            id="descricao"
+            type="text"
+            class="form-control"
+            formControlName="descricao"
+            [ngClass]="{ 'is-invalid': form.get('descricao')?.invalid && form.get('descricao')?.touched }"
+          />
+          <div class="invalid-feedback" *ngIf="form.get('descricao')?.errors?.['required']">
+            A descrição é obrigatória.
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('descricao')?.errors?.['minlength']">
+            A descrição deve ter no mínimo 3 caracteres.
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('descricao')?.errors?.['maxlength']">
+            A descrição deve ter no máximo 100 caracteres.
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start mt-4">
+          <button type="submit" class="btn btn-primary me-2" [disabled]="form.invalid">
+            {{ editando ? 'Atualizar' : 'Salvar' }}
+          </button>
+          <a routerLink="/assuntos" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
